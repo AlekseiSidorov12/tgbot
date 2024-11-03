@@ -1,0 +1,66 @@
+import telebot
+import random
+from telebot.types import Message
+
+bot = telebot.TeleBot('8161647641:AAHkDbSp5fQIASH7ghTKJ5R-WSjdbpuwfsQ')
+
+@bot.message_handler(commands=['start'])
+def cmd_start(message: Message): 
+    bot.reply_to(message, 'Hello my friend! I am new bot for school')
+
+
+@bot.message_handler(commands=['math'])
+def cmd_math(message: Message): 
+    bot.reply_to(message, '3x0=?')
+
+    
+@bot.message_handler(commands=['made'])
+def cmd_made(message: Message): 
+    bot.reply_to(message, '@Hy_3x, @BotFather')
+
+
+@bot.message_handler(commands=['password'])
+def cmd_password(message: Message):
+    glas = "eyuioaEYUIOA"
+    soglas ="qwrtpsdfghjklzxcvbnmQQWRTPSDFGHJKLZXCVBNM"
+    digits = '0123456789'
+    symbols = '!@#?+=-*'
+    password = ""
+    for i in range(random.randint(3, 4)):
+        password += random.choice(soglas) + random.choice(glas)
+
+    for i in range(random.randint(2, 4)):
+        password += random.choice(digits) 
+
+    for i in range(random.randint(2, 4)):
+        password += random.choice(symbols) 
+    bot.reply_to(message, 'Your password:' + password)
+
+
+
+
+
+
+
+@bot.message_handler(commands=['name'])
+def cmd_name(message: Message):
+    bot.reply_to(message, ' Как вас зовут? ')
+    bot.register_next_step_handler(message, get_name)
+
+
+def get_name(message: Message):
+    name = message.text
+    bot.reply_to(message, 'Привет! ' + name) 
+
+
+
+
+
+
+
+
+
+
+
+
+bot.polling()
